@@ -22,6 +22,10 @@ public class DBStateMachine : NSObject {
         self.states = states
         
         super.init()
+        
+        for state in self.states {
+            state.stateMachine = self
+        }
     }
     
     /**
@@ -30,7 +34,11 @@ public class DBStateMachine : NSObject {
      * @param stateClass the class of the state to be tested
      */
     public func canEnterState(stateClass: AnyClass) -> Bool {
-        return self.currentState?.isValidNextState(stateClass) != nil
+        if let state = self.currentState {
+            return state.isValidNextState(stateClass)
+        } else {
+            return true
+        }
     }
     
     /**
@@ -44,7 +52,6 @@ public class DBStateMachine : NSObject {
     public func enterState(stateClass: AnyClass) -> Bool {
         if self.canEnterState(stateClass) {
             if let nextState = self.stateForClass(stateClass) {
-                nextState.stateMachine = self
                 
                 self.currentState?.willExitWithNextState(nextState)
                 nextState.didEnterWithPreviousState(self.currentState)
