@@ -27,12 +27,18 @@ class GrayState : BoxColorState {
     
     override func didEnterWithPreviousState(previousState: DBState?) {
         self.boxView?.backgroundColor = UIColor.grayColor()
+        UIView.animateWithDuration(3.5) {
+            self.boxView?.layer.opacity = 0.2
+        }
         self.logTextView?.text.appendContentsOf("\ngray state did enter...")
     }
     
     override func willExitWithNextState(nextState: DBState) {
-        self.logTextView?.text.appendContentsOf("\ngray state will exit...")
+        UIView.animateWithDuration(0.5) {
+            self.boxView?.layer.opacity = 1.0
+        }
         
+        self.logTextView?.text.appendContentsOf("\ngray state will exit...")
     }
 }
 
@@ -43,40 +49,58 @@ class RedState : BoxColorState {
     
     override func didEnterWithPreviousState(previousState: DBState?) {
         self.boxView?.backgroundColor = UIColor.redColor()
+        UIView.animateWithDuration(0.5) {
+            self.boxView?.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.2, 1.2)
+        }
         self.logTextView?.text.appendContentsOf("\nred state did enter...")
     }
     
     override func willExitWithNextState(nextState: DBState) {
+        UIView.animateWithDuration(0.5) {
+            self.boxView?.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.0, 1.0)
+        }
         self.logTextView?.text.appendContentsOf("\nred state will exit...")
     }
 }
 
 class GreenState : BoxColorState {
     override func isValidNextState(stateClass: AnyClass) -> Bool {
-        return stateClass == BlackState.self
+        return stateClass == BlueState.self
     }
     
     override func didEnterWithPreviousState(previousState: DBState?) {
         self.boxView?.backgroundColor = UIColor.greenColor()
+        UIView.animateWithDuration(0.5) { 
+            self.boxView?.transform = CGAffineTransformRotate(CGAffineTransformIdentity, 2.5)
+        }
         self.logTextView?.text.appendContentsOf("\ngreen state did enter...")
     }
     
     override func willExitWithNextState(nextState: DBState) {
+        UIView.animateWithDuration(0.5) { 
+            self.boxView?.transform = CGAffineTransformRotate(CGAffineTransformIdentity, 0)
+        }
         self.logTextView?.text.appendContentsOf("\ngreen state will exit...")
     }
 }
 
 class BlueState : BoxColorState {
     override func isValidNextState(stateClass: AnyClass) -> Bool {
-        return stateClass == GreenState.self
+        return stateClass == BlackState.self
     }
     
     override func didEnterWithPreviousState(previousState: DBState?) {
         self.boxView?.backgroundColor = UIColor.blueColor()
+        UIView.animateWithDuration(0.5) { 
+            self.boxView?.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1)
+        }
         self.logTextView?.text.appendContentsOf("\nblue state did enter...")
     }
     
     override func willExitWithNextState(nextState: DBState) {
+        UIView.animateWithDuration(0.5) { 
+            self.boxView?.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1, 1)
+        }
         self.logTextView?.text.appendContentsOf("\nblue state will exit...")
     }
 }
@@ -88,10 +112,12 @@ class BlackState : BoxColorState {
     
     override func didEnterWithPreviousState(previousState: DBState?) {
         self.boxView?.backgroundColor = UIColor.blackColor()
+        self.boxView?.layer.cornerRadius = 20
         self.logTextView?.text.appendContentsOf("\nblack state did enter...")
     }
     
     override func willExitWithNextState(nextState: DBState) {
+        self.boxView?.layer.cornerRadius = 0
         self.logTextView?.text.appendContentsOf("\nblack state will exit...")
     }
 }
@@ -118,7 +144,11 @@ class ViewController: UIViewController {
     @IBAction func changeStates(sender: UIButton) {
         if let currentState = stateMachine.currentState {
             if currentState is GrayState {
-                stateMachine.enterState(RedState)
+                if arc4random_uniform(2) == 0 {
+                    stateMachine.enterState(RedState)
+                } else {
+                    stateMachine.enterState(GreenState)
+                }
             } else if currentState is RedState {
                 stateMachine.enterState(GreenState)
             } else if currentState is GreenState {
