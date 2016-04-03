@@ -140,16 +140,25 @@ GKStateMachine only can be used iOS9+, but I want perfect downward compatible. J
 
 - iOS6+
 
-## Installation
+# API Reference
 
-## API Reference
+A `DBStateMachine` object manages a finite-state machine - a collection of states that has at all times a single current state, a means for transitioning from the current state to another in the collection, and a set of rules that determines which transitions between states are valid.
 
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
+To build a state machine, first define a distinct subclass of `DBState` for each possible state of the machine. In each state class, the `isValidNextState:` method determines which other state classes the machine may transition into from that state.Then, create a state machine object by constructing instances of the state classes and passing them to initializer. Finally, set the machine in motion by choosing an initial state for it to enter with the `enterState:` method.
 
-## Contributors
+To define state-dependent behavior, override the `didEnterWithPreviousState:`, and `willExitWithNextState:` methods in each `DBState` subclass.
+
+# Reference
+- [GKStateMachine](https://developer.apple.com/library/ios/documentation/GameplayKit/Reference/GKStateMachine_Class/#//apple_ref/doc/uid/TP40015208-CH1-SW5)
+- [State Machines](https://developer.apple.com/library/ios/documentation/General/Conceptual/GameplayKit_Guide/StateMachine.html#//apple_ref/doc/uid/TP40015172-CH7)
+
+# Contributors
 
 Please let me know if you like the library, or have any suggestions:]. I plan to maintain this library regularly. Any pull requests are welcome!
 
-## License
+- Email: dabing1022@gmail.com
+- Blog: http://dabing1022.github.io
+
+# License
 
 DBStateMachine is available under the MIT license. See the LICENSE file for more info.
