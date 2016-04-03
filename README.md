@@ -134,11 +134,12 @@ stateMachine.enterState(GrayState)
 
 # Motivation
 
-GKStateMachine only can be used iOS9+, but I want perfect downward compatible. Just use it directly as if it's shipped from iOS6.
+GKStateMachine only can be used iOS9+, but I want perfect downward compatible. Just use it directly as if it's shipped from iOS7.
 
 # Requirements
 
-- iOS6+
+- iOS7+
+- Swift
 
 # API Reference
 
