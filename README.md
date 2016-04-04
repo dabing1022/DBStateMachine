@@ -2,6 +2,10 @@
 
 A swift library for implementing state machine just like GKStateMachine in GameplayKit.
 
+[![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
+![Support](https://img.shields.io/badge/support-iOS7%2B-orange.svg)
+[![Blog](https://img.shields.io/badge/blog-http%3A%2F%2Fdabing1022.github.io-blue.svg)](http://dabing1022.github.io)
+
 # Code Example
 
 ### Preview
@@ -162,7 +166,6 @@ To define state-dependent behavior, override the `didEnterWithPreviousState:`, a
 Please let me know if you like the library, or have any suggestions:]. I plan to maintain this library regularly. Any pull requests are welcome!
 
 - Email: dabing1022@gmail.com
-- Blog: http://dabing1022.github.io
 
 # License
 
