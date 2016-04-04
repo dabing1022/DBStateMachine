@@ -4,6 +4,10 @@ A swift library for implementing state machine just like GKStateMachine in Gamep
 
 # Code Example
 
+### Preview
+
+![DBStateMachineDemoPreview](http://7u2lyz.com1.z0.glb.clouddn.com/DBStateMachine.gif)
+
 ```swift
 class BoxColorState : DBState {
     var boxView: UIView?
